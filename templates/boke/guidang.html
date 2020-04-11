@@ -1,0 +1,27 @@
+{% load staticfiles %} <!--使用 static 模板标签-->
+{% load boke_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>归档界面</title>
+</head>
+<body>
+<div class="widget widget-archives">
+    <h3 class="widget-title-1">随笔归档</h3>
+    {% get_files as time %}
+    <ul>
+        {% for date in time %}
+        
+        
+        <li><a href="{% url 'boke:files' date.year date.month %}">
+            {{ date.year }} 年 {{ date.month }} 月</a></li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
+<hr>
+
+
+

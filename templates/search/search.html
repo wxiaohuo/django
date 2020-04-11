@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load highlight %}
+{% block my %}
+    {% if query %}
+        {% for lookup in page.object_list %}
+            <article class="post post-{{ lookup.object.pk }}">
+                <header class="entry-header">
+                    <h1 class="text-111">
+                        <hr class="hr-111">
+                        <a href="{{ lookup.object.look_up }}">{% highlight lookup.object.title with query %}</a>
+                    </h1>
+                    <div class="text-112">
+                            <span class="glyphicon glyphicon-time" style="color: rgb(102, 99, 99)"><a href="#"><time class="entry-date" >{{ lookup.object.created }}&nbsp;</time></a></span>
+                            <span class="glyphicon glyphicon-pencil" style="color: rgb(102, 99, 99)"><a href="#">{{ lookup.object.comment_set.count }}&nbsp;</a></span>
+                            <span class="glyphicon glyphicon-eye-open" style="color: rgb(102, 99, 99)"><a href="#">{{ lookup.object.views }}</a></span>
+                        </div>
+                </header>
+            </article>
+        {% empty %}
+            <div class="no-post">未查询到您想要查询的内容！</div>
+        {% endfor %}
+        <nav aria-label="Page navigation" style="text-align: center;">
+            <ul class="pagination">
+                {% if article_list.has_previous %}
+                <li><a class="extend prev" rel="next" href="{{ article_list.previous_page_number }}">上一页</a></li>
+                {% endif %}
+                {% if article_list.has_next %}
+                <li><a class="extend next" rel="next" href="{{ article_list.next_page_number }}">下一页</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% else %}
+            请输入搜索关键字
+        {% endif %}
+{% endblock my %}

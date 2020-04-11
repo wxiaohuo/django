@@ -1,0 +1,21 @@
+{% load staticfiles %} <!--使用 static 模板标签-->
+{% load boke_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分类界面</title>
+</head>
+<body>
+<div class="widget widget-category">
+    <h3 class="widget-title-1">文章分类</h3>
+    {% get_classification as type %}
+    <ul>
+        {% for classification in type %}
+        <li><a href="{% url 'boke:classification' classification.pk %}">{{ classification.cname }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,165 @@
+{% load staticfiles %} <!--使用 static 模板标签-->
+{% load boke_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>我的博客</title>
+        <!-- meta -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- css -->
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="{% static 'boke/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'boke/css/custom.css' %}">
+        <!-- js -->
+        <script src="{% static 'boke/js/jquery-2.1.3.min.js' %}"></script>
+        <script src="{% static 'boke/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'boke/js/pace.min.js' %}"></script>
+        <script src="{% static 'boke/js/modernizr.custom.js' %}"></script>
+
+        <link href="https://cdn.bootcss.com/highlight.js/9.15.8/styles/github.min.css" rel="stylesheet">
+
+    </head>
+
+<body>
+<!--<nav class="navbar navbar-default">-->
+<!--    <div class="container-fluid">-->
+<!--    <div class="navbar-header">-->
+<!--        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
+<!--            <span class="sr-only">Toggle navigation</span>-->
+<!--            <span class="icon-bar"></span>-->
+<!--            <span class="icon-bar"></span>-->
+<!--            <span class="icon-bar"></span>-->
+<!--        </button>-->
+<!--        <a class="navbar-brand" href="#">欢迎光临我的博客</a>-->
+<!--    </div>-->
+<!--    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+<!--        <ul class="nav navbar-nav">-->
+<!--            <li class="active"><a href="{% url 'boke:home' %}">首页 <span class="sr-only"></span></a></li>-->
+<!--        </ul>-->
+<!--        <form class="navbar-form navbar-left" method="get" action="{% url 'haystack_search' %}">-->
+<!--            <div class="form-group">-->
+<!--            <input name="q" type="text" class="form-control" placeholder="请输入关键字">-->
+<!--            </div>-->
+<!--            <button type="submit" class="btn btn-default">搜索</button>-->
+<!--        </form>-->
+<!--        <ul class="nav navbar-nav navbar-right">-->
+<!--            {% if request.session.is_login %}-->
+<!--      <li><a href="#">当前在线：{{ request.session.user_name }}</a></li>-->
+<!--      <li><a href="/logout/">登出</a></li>-->
+<!-- {% else %}-->
+<!--      <li><a href="/login/">登录</a></li>-->
+<!--      <li><a href="/register/">注册</a></li>-->
+<!--{% endif %}-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">欢迎光临我的博客</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="{% url 'boke:home' %}">首页 <span class="sr-only"></span></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更 多<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/fenlei/">分类</a></li>
+            <li><a href="/guidang/">归档</a></li>
+            <li><a href="#">关于</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" method="get" action="{% url 'haystack_search' %}">
+        <div class="form-group">
+          <input name="q" type="text" class="form-control" placeholder="请输入关键字">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div>
+</nav>
+
+
+
+{% if messages %}
+    {% for tips in messages %}
+      <div class="alert alert-{{ tips.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        {{ tips }}
+      </div>
+    {% endfor %}
+{% endif %}
+<div class="content-body">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-8">
+                {% block my %}
+                {% endblock my %}
+            </main>
+            <aside class="col-md-4">
+                {% block toc %}
+                {% if post.toc %}
+                <div >
+                    <h3 class="widget-title">文章目录</h3>
+                    <div class="toc">
+                        <ul>
+                        {{ post.toc|safe }}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+                {% endblock toc %}
+                <div class="widget widget-recent-posts">
+                    <h3 class="widget-title-1">最新文章</h3>
+                    {% get_posts as new_post %}
+                    <ul>
+                        {% for post in new_post %}
+                    <li>
+                        <a href="{{ post.look_up }}">{{ post.title }}</a>
+                    </li>
+                        {% empty %}
+                        博主好像什么都没有写！
+                        {% endfor %}
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <a  title="欢迎光临" target="_blank">
+                        <hr class="hr-111">python3.7+Django2.2开发的个人博客</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="{% static 'boke/js/script.js' %}"></script>
+
+<body>
+    <script src="https://cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        h1js.initHighlightingOnLoad();
+        h1js.initLineNumbersOnLoad();
+    </script>
+</body>
+</body>
+</html>

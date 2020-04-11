@@ -1,0 +1,21 @@
+<form action="{% url 'comments:comment' blog.pk %}" method="post" class="comment-form">
+  {% csrf_token %}
+  <div class="row">
+      <div class="col-md-4">
+          <label  for="{{ biaodan.name.id_for_label }}">{{ biaodan.name.label }}：</label>
+          {{ biaodan.name }}
+          {{ biaodan.name.errors }}
+      </div>
+      <div class="col-md-12">
+          <label for="{{ biaodan.email.id_for_label }}">{{ biaodan.email.label }}：</label>
+          {{ biaodan.email }}
+          {{ biaodan.email.errors }}
+      </div>
+      <div class="col-md-12">
+          <label for="{{ biaodan.body.id_for_label }}">{{ biaodan.body.label }}：</label>
+          {{ biaodan.body }}
+          {{ biaodan.body.errors }}
+      <button type="submit" class="comment-btn">提交</button>
+      </div>
+  </div>
+</form>

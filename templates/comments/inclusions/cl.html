@@ -1,0 +1,16 @@
+<h3><span>{{ total }}</span> 人参与了评论</h3>
+<ul class="comment-list list-unstyled">
+    {% for pinglun in liebiao %}
+        <li class="comment-item">
+            <span class="nickname">用户：{{ pinglun.name }}</span>
+            <time class="submit-date">发表于：{{ pinglun.created }}</time>
+            <div class="text">
+            {{ pinglun.body|linebreaks }}
+            </div>
+        </li>
+    {% empty %}
+    暂无评论
+    {% endfor %}
+</ul>
+
+

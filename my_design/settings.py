@@ -24,7 +24,7 @@ SECRET_KEY = '2!kl__m5*h7-zj-rh=q%tq0q3!r%&gn$+&+jy^*k8ojwrx)bpy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.boyw.top']
 
 # Application definition
 
@@ -117,6 +117,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # 生成索引路径
 HAYSTACK_CONNECTIONS = {

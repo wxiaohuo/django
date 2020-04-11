@@ -11,6 +11,8 @@ django-haystack = "*"
 markdown = "*"
 whoosh = "*"
 future = "*"
+python-future = "*"
+django-import-export = "*"
 
 [requires]
 python_version = "3"

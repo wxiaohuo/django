@@ -10,10 +10,6 @@ django = "~=2.2"
 django-haystack = "*"
 markdown = "*"
 whoosh = "*"
-gunicorn = "*"
-faker = "*"
-django-pure-pagination = "*"
-elasticsearch = ">=2,<3"
 django-haystack = "*"
 
 [requires]
